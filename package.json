@@ -1,0 +1,23 @@
+{
+  "name": "ai-learning-platform",
+  "version": "1.0.0",
+  "description": "Mini AI-driven learning platform (technical assignment)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N5618/ai-learning-platform.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/N5618/ai-learning-platform/issues"
+  },
+  "homepage": "https://github.com/N5618/ai-learning-platform#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1"
+  }
+}
