@@ -18,6 +18,12 @@
   "homepage": "https://github.com/N5618/ai-learning-platform#readme",
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.96",
     "express": "^5.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.0.2"
   }
 }
