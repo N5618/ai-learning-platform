@@ -1,6 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface Iprompt extends Document {
+
+export interface CreatePromptDTO {
+  userId: string;
+  categoryId: string;
+  subCategoryId: string;
+  userQuestion: string;
+}
+
+
+export interface IPrompt extends Document {
     user_id: mongoose.Types.ObjectId;
     category_id: mongoose.Types.ObjectId;
     sub_category_id: mongoose.Types.ObjectId;
@@ -18,4 +27,5 @@ const promptSchema = new Schema({
     created_at: { type: Date, default: Date.now }
 })
 
-export default mongoose.model<Iprompt>("Prompt", promptSchema);
+
+export const PromptModel = mongoose.model<IPrompt>("Prompt", promptSchema);
