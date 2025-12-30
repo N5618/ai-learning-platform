@@ -5,15 +5,18 @@ import { PromptRepository } from "./prompts-repository";
 import { PromptModel } from "./model"; 
 import { CategoryRepository } from "../categories/categories-repository";
 import { categoryModel } from "../categories/categories-model";
-import { AiService } from "../common/ai-service";
+import { subCategoryModel } from "../categories/sub-categories-model";
+import { AiService } from "../AI/ai-service";
+import { CategoryService } from "../categories/categories-service";
 
 const router = Router();
 
 
 const promptRepo = new PromptRepository(PromptModel);
-const categoryRepo = new CategoryRepository(categoryModel);
+const categoryRepo = new CategoryRepository(categoryModel, subCategoryModel);
+const categoryService = new CategoryService(categoryRepo);
 const aiService = new AiService();
-const promptService = new PromptService(promptRepo, categoryRepo, aiService);
+const promptService = new PromptService(promptRepo, categoryService, aiService);
 const promptController = new PromptController(promptService);
 
  

@@ -1,29 +1,33 @@
 import { PromptRepository, } from "./prompts-repository";
 import { CreatePromptDTO } from "./model"
-import { CategoryRepository } from "../categories/categories-repository"
-import { AiService } from "../common/ai-service";
+import { CategoryService } from "../categories/categories-service"
+import { AiService } from "../AI/ai-service";
 import { Types } from "mongoose";
 
 
 export class PromptService {
     constructor(private promptRepository: PromptRepository,
-        private readonly categoryRepository: CategoryRepository,
+        private readonly categoryService: CategoryService,
         private readonly aiService: AiService
     ) { }
 
     async createLesson(dto: CreatePromptDTO) {
         const { userId, categoryId, subCategoryId, userQuestion } = dto;
 
-        const category = await this.categoryRepository.findById(categoryId);
-        const subCategory = await this.categoryRepository.findSubById(subCategoryId);
+        const category = await this.categoryService.findById(categoryId);
+        const subCategory = await this.categoryService.findSubById(subCategoryId);
 
-        //לזכור להחזיר אוביקט מסוג קטגוריה ואז זה לא יהיה אדום
+      
         const categoryName = category?.name || "General";
         const subCategoryName = subCategory?.name || "General Topic";
 
-        const prompt = `User: ${userQuestion}\nCategory: ${categoryName}\nSubcategory: ${subCategoryName}\nAI:`;
+        const aiResponse = await this.aiService.generateLesson(
+            categoryName,
+            subCategoryName,
+            dto.userQuestion
+        );
 
-        const aiResponse = await this.aiService.generateResponse(prompt);
+
 
         return await this.promptRepository.create({
             user_id: new Types.ObjectId(userId),
@@ -36,10 +40,10 @@ export class PromptService {
 
     }
     async getUserHistoryById(userId: string) {
-    return await this.promptRepository.getHistoryByUserId(userId);
-  }
+        return await this.promptRepository.getHistoryByUserId(userId);
+    }
 
-   async getAll() {
-    return await this.promptRepository.getAll();
-  }
+    async getAll() {
+        return await this.promptRepository.getAll();
+    }
 }
