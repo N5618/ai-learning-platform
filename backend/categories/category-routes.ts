@@ -13,5 +13,7 @@ const controller = new CategoryController(categoryService);
 
 router.get("/:id/subs", controller.getSubsByMainId);
 router.get("/", controller.getAll);
+router.post("/", controller.createCategory);
+router.post("/sub", controller.createSubCategory);
 
 export default router;

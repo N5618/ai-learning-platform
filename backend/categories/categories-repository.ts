@@ -28,4 +28,21 @@ export class CategoryRepository {
     async findSubById(id: string): Promise<IsubCategory | null> {
         return await this.subCategoryModel.findById(id);
     }
+
+    
+    async createCategory(name: string): Promise<Icategory> {
+        return await this.categoryModel.create({ name });
+    }
+
+  
+    async createSubCategory(name: string, categoryId: string): Promise<IsubCategory> {
+        return await this.subCategoryModel.create({ 
+            name, 
+            category_id: new Types.ObjectId(categoryId) 
+        });
+    }
+
+    async findCategoryByName(name: string): Promise<Icategory | null> {
+        return await this.categoryModel.findOne({ name });
+    }
 }

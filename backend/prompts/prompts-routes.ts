@@ -8,6 +8,8 @@ import { categoryModel } from "../categories/categories-model";
 import { subCategoryModel } from "../categories/sub-categories-model";
 import { AiService } from "../AI/ai-service";
 import { CategoryService } from "../categories/categories-service";
+import { validatePrompt ,validateUserId} from "../middlweares/validaition-midd";
+import { isAdmin } from "../middlweares/auth-middleware";
 
 const router = Router();
 
@@ -20,9 +22,10 @@ const promptService = new PromptService(promptRepo, categoryService, aiService);
 const promptController = new PromptController(promptService);
 
  
-router.post("/", promptController.createLesson);
-router.get("/history/:userId", promptController.getUserHistoryById);
-router.get("/", promptController.getAll);
+router.post("/generate",validateUserId,validatePrompt, promptController.createLesson);
+router.get("/history/:userId",validateUserId,promptController.getUserHistoryById);
+router.get("/admin/all",isAdmin, promptController.getAll);
+
 
 
 export default router;

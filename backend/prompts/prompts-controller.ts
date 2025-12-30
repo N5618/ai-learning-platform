@@ -12,13 +12,7 @@ export class PromptController {
     async createLesson(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const dto: CreatePromptDTO = req.body;
-            if (!dto.userQuestion || !dto.categoryId || !dto.subCategoryId) {
-                res.status(400).json({
-                    success: false,
-                    message: "Missing required fields: userQuestion, categoryId, or subCategoryId"
-                });
-                return;
-            }
+
 
             const lesson = await this.promptService.createLesson(dto);
 
@@ -29,17 +23,11 @@ export class PromptController {
             });
 
         } catch (error: any) {
-            console.error("Error in PromptController.createLesson:", error);
-
-            res.status(500).json({
-                success: false,
-                message: "An internal server error occurred while generating the lesson",
-                error: error.message
-            });
+            next(error);
         }
     }
 
-    async getUserHistoryById(req: Request, res: Response): Promise<void> {
+    async getUserHistoryById(req: Request, res: Response,next:NextFunction): Promise<void> {
         try {
             const { userId } = req.params;
 
@@ -57,11 +45,11 @@ export class PromptController {
             });
 
         } catch (error: any) {
-            res.status(500).json({ success: false, message: "Failed to fetch history" });
+          next(error)
         }
     }
 
-    async getAll(req: Request, res: Response): Promise<void> {
+    async getAll(req: Request, res: Response,next:NextFunction): Promise<void> {
         try {
             const allPrompts = await this.promptService.getAll();
             res.status(200).json({
@@ -69,7 +57,7 @@ export class PromptController {
                 data: allPrompts
             });
         } catch (error: any) {
-            res.status(500).json({ success: false, message: "Failed to fetch prompts" });
+           next(error);
         }
     }
 }
