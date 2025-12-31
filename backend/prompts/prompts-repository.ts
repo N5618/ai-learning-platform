@@ -9,6 +9,7 @@ export class PromptRepository {
     }
 
     async getHistoryByUserId(userId: string): Promise<IPrompt[]> {
+        console.log("Looking for history for user:", userId)
         if (!Types.ObjectId.isValid(userId)) {
             throw new Error("INVALID_USER_ID");
         }

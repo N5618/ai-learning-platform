@@ -29,7 +29,6 @@ export class LearningForm {
 
   constructor(private apiService: ApiService) { }
 
-
   ngOnInit() {
     this.apiService.getCategories().subscribe(res => {
       this.categories = res;

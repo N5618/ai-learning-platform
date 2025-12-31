@@ -38,7 +38,7 @@ export class PromptController {
 
             const history = await this.promptService.getUserHistoryById(userId);
 
-            res.status(201).json({
+            res.status(200).json({
                 success: true,
                 count: history.length,
                 data: history

@@ -1,0 +1,24 @@
+<div class="history-container" dir="rtl">
+  <h3 class="history-header">🕒 היסטוריית למידה</h3>
+  
+  <div class="list-group">
+    <button 
+      *ngFor="let lesson of allLessons" 
+      class="list-group-item list-group-item-action lesson-item"
+      (click)="onSelectedLesson(lesson)">
+      
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1 text-truncate">{{ lesson.prompt }}</h5>
+        <small>{{ lesson.created_at | date:'dd/MM/yy' }}</small>
+      </div>
+      
+      <p class="mb-1 text-muted">
+        🏷️ {{ lesson.category_id.name }} - {{ lesson.sub_category_id.name }}
+      </p>
+    </button>
+  </div>
+
+  <div *ngIf="allLessons.length === 0" class="text-center mt-4">
+    <p>עוד לא יצרת שיעורים. זה הזמן להתחיל! ✨</p>
+  </div>
+</div>

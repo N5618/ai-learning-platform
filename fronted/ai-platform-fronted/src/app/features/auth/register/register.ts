@@ -25,35 +25,33 @@ export class Register {
 
 
   onRegister() {
-  this.errorMessage = null;
+    this.errorMessage = null;
 
-  this.apiService.register(this.userData).subscribe({
-   
-    next: (response: ApiResponse<User>) => { 
-      console.log("תשובת השרת:", response);
+    this.apiService.register(this.userData).subscribe({
 
-      const userData = response.data;
-  
-      if (userData && userData._id) {
-        localStorage.setItem('user_id', userData._id);
+
+
+      next: (response: any) => {
+        console.log("תשובת השרת המלאה:", response);
+
+      
+        const user = response.data?.user;
+
+        if (user && user._id) {
+          localStorage.setItem('user_id', user._id);
+          console.log("מזהה המשתמש נשמר בהצלחה:", user._id);
+        } else {
+          console.warn("לא נמצא מזהה משתמש בתוך response.data.user");
+        }
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        if (err.status === 0) {
+          this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
+        } else {
+          this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
+        }
       }
-
-     
-      if (response.message === "WELCOME_BACK") {
-        alert('טוב שחזרת! עובר לדשבורד...');
-      } else {
-        alert('נרשמת בהצלחה!');
-      }
-
-      this.router.navigate(['/dashboard']);
-    },
-    error: (err) => {
-      if (err.status === 0) {
-        this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
-      } else {
-        this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
-      }
-    }
-  });
-}
+    });
+  }
 }

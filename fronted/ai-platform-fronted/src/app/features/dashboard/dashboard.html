@@ -1,9 +1,32 @@
-<div class="dashboard-container p-4" dir="rtl">
-  <h1 class="mb-4">מרכז הלמידה שלי</h1>
+<div class="dashboard-wrapper d-flex" dir="rtl">
+  
+  <aside class="history-sidebar border-start p-3">
+    <app-history 
+      [allLessons]="allLessons" 
+      (lessonSelected)="onLessonSelected($event)">
+    </app-history>
+  </aside>
 
-  <app-learning-form (lessonGenerated)="onLessonGenerated($event)"></app-learning-form>
+  <main class="main-content flex-grow-1 p-4">
+    <header class="mb-4">
+      <h1>מרכז הלמידה שלי 🧠</h1>
+    </header>
 
-  <hr class="my-5">
+    <section class="mb-5">
+      <app-learning-form (lessonGenerated)="onLessonGenerated($event)"></app-learning-form>
+    </section>
 
-  <app-lesson-view *ngIf="currentLesson" [content]="currentLesson"></app-lesson-view>
+    <hr>
+
+    <section class="lesson-display mt-4">
+        
+     <app-lesson-view *ngIf="currentLesson" [content]="currentLesson"></app-lesson-view>
+
+      <div *ngIf="!currentLesson" class="alert alert-light text-center border">
+        <h5>מוכנים ללמוד משהו חדש? 🚀</h5>
+        <p>בחרו שיעור מההיסטוריה בצד או מלאו את הטופס למעלה.</p>
+      </div>
+    </section>
+  </main>
+
 </div>
