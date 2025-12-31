@@ -30,13 +30,13 @@ export class ApiService {
   }
 
 getSubCategoriesByCategory(categoryId: string): Observable<SubCategory[]> {
-  return this.http.get<ApiResponse<SubCategory[]>>(`${this.baseUrl}/categories/${categoryId}/subs`)
+  return this.http.get<ApiResponse<SubCategory[]>>(`${this.baseUrl}/categories/${categoryId}/subs/`)
     .pipe(map(res => res.data)
     );
 }
 
   sendPrompt(dto: CreatePromptDTO): Observable<Prompt> {
-    return this.http.post<ApiResponse<Prompt>>(`${this.baseUrl}}/prompts/genarate`, dto)
+    return this.http.post<ApiResponse<Prompt>>(`${this.baseUrl}/prompts/generate/`, dto)
       .pipe(map(response => response.data))
   }
 getHistoryById(userId: string): Observable<Prompt[]> {

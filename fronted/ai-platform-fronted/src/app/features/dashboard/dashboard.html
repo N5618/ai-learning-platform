@@ -1,1 +1,9 @@
-<p>dashboard works!</p>
+<div class="dashboard-container p-4" dir="rtl">
+  <h1 class="mb-4">מרכז הלמידה שלי</h1>
+
+  <app-learning-form (lessonGenerated)="onLessonGenerated($event)"></app-learning-form>
+
+  <hr class="my-5">
+
+  <app-lesson-view *ngIf="currentLesson" [content]="currentLesson"></app-lesson-view>
+</div>

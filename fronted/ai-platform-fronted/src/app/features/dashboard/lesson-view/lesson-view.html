@@ -1,1 +1,26 @@
-<p>lesson-view works!</p>
+<div *ngIf="content" class="lesson-container mt-4 p-4 border rounded shadow-sm bg-white" dir="rtl">
+    <div class="lesson-header border-bottom pb-2 mb-3">
+        <h2 class="text-primary">📖 השיעור שלך מוכן</h2>
+        <small class="text-muted">
+            נושא: {{ content.category_id.name }} > {{ content.sub_category_id.name }}
+        </small>
+    </div>
+
+    <div class="lesson-body">
+        <h4 class="mb-3">נושא השיעור: {{ content.prompt }}</h4>
+
+        <div class="ai-response p-3 bg-light rounded" style="white-space: pre-wrap; line-height: 1.6;">
+            {{ content.response }}
+        </div>
+    </div>
+
+    <div class="lesson-footer mt-4 text-start">
+        <button class="btn btn-outline-secondary btn-sm" (click)="printLesson()">
+            🖨️ הדפס שיעור
+        </button>
+    </div>
+</div>
+
+<div *ngIf="!content" class="text-center mt-5 text-muted">
+    <p>בחר נושא ולחץ על "צור שיעור" כדי להתחיל...</p>
+</div>

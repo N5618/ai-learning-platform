@@ -11,9 +11,9 @@ const categoryRepo = new CategoryRepository(categoryModel, subCategoryModel);
 const categoryService = new CategoryService(categoryRepo);
 const controller = new CategoryController(categoryService);
 
-router.get("/:id/subs", controller.getSubsByMainId);
 router.get("/", controller.getAll);
 router.post("/", controller.createCategory);
+router.get("/:id/subs", controller.getSubsByMainId);
 router.post("/sub", controller.createSubCategory);
 
 export default router;

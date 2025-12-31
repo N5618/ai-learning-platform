@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Prompt } from '../../../core/models/learning.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lesson-view',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './lesson-view.html',
   styleUrl: './lesson-view.css',
 })
 export class LessonView {
-
+  @Input() content: Prompt | null = null;
+  printLesson() {
+    window.print();
+  }
 }

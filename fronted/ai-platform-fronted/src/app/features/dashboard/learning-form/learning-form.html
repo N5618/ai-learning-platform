@@ -1,1 +1,32 @@
-<p>learning-form works!</p>
+<div class="card shadow-sm p-4" dir="rtl">
+  <h5 class="card-title mb-4 text-primary border-bottom pb-2">מחולל שיעורים חכם</h5>
+  
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label font-weight-bold">תחום לימוד</label>
+      <select class="form-select" [(ngModel)]="selectedCategoryId" name="cat" (change)="onCategoryChange()" required>
+        <option value="" disabled>בחר תחום...</option>
+        <option *ngFor="let cat of categories" [value]="cat._id">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">נושא ספציפי</label>
+      <select class="form-select" [(ngModel)]="selectedSubCategoryId" name="subCat" [disabled]="!selectedCategoryId" required>
+        <option value="" disabled>בחר נושא...</option>
+        <option *ngFor="let sub of subCategories" [value]="sub._id">{{ sub.name }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">מה תרצה לדעת?</label>
+      <textarea class="form-control" [(ngModel)]="userPrompt" name="prompt" rows="3" 
+                placeholder="לדוגמה: הסבר לי על חורים שחורים כאילו אני בן 5"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="isLoading || !selectedSubCategoryId || !userPrompt">
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
+      {{ isLoading ? 'מייצר שיעור...' : 'שלח ל-AI' }}
+    </button>
+  </form>
+</div>
