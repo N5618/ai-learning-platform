@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, { Express } from 'express';
+import cors from 'cors';
 import { errorHandler } from './middlweares/error-handler';
 import userRouter from './users/users-routes';
 import promptRouter from "./prompts/prompts-routes"
@@ -19,6 +20,7 @@ export default class App {
     public async init() {
 
         await connectToDb()
+        this.app.use(cors());
 
         this.app.use(express.json());
 

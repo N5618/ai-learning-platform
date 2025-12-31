@@ -8,9 +8,10 @@ export class UserService {
 
         const exists = await this.userRepository.findByPhone(phone);
         if (exists) {
-            throw new Error("USER_ALREADY_EXISTS");
+           return { user: exists, isExisting: true };
         }
-        return this.userRepository.create({ name, phone ,role});
+        const newUser = await this.userRepository.create({ name, phone, role });
+        return { user: newUser, isExisting: false };
     }
 
     async getById(userId: string) {

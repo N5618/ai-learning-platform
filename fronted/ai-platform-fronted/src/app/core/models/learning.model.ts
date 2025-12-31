@@ -1,26 +1,46 @@
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 export interface User {
-  id?: number;
+  _id?: string;
   name: string;
   phone: string;
+  role?: string;
+  __v?: number;
 }
 
 export interface Category {
-  id: number;
+  _id: string;
   name: string;
+  __v?: number;
 }
-
 export interface SubCategory {
-  id: number;
+  _id: string;
   name: string;
-  category_id: number;
+  category_id: string;
+  __v?: number;
 }
 
-export interface AISession {
-  id?: number;
-  user_id: number;
-  category_id: number;
-  sub_category_id: number;
+export interface Prompt {
+  _id: string;
+  user_id: string; 
+  category_id: {
+    _id: string;
+    name: string;
+  };
+  sub_category_id: {
+    _id: string;
+    name: string;
+  };
   prompt: string;
   response: string;
-  created_at?: Date;
+  created_at: string;
+}
+export interface CreatePromptDTO {
+  userId: string;
+  categoryId: string;
+  subCategoryId: string;
+  userQuestion: string;
 }

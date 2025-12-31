@@ -14,7 +14,10 @@ export class CategoryController {
         try {
             const { id } = req.params;
             const subs = await this.categoryService.findSubsByCategoryId(id);
-            res.status(200).json({ data: subs });
+           res.status(200).json({ 
+            success: true, 
+            data: subs 
+        });
         } catch (error) {
             next(error)
         }

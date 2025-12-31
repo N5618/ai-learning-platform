@@ -13,11 +13,12 @@ export class ControllerUser {
     try {
       const { name, phone, role } = req.body;
      
-      const newUser = await this.userService.registerUser(name,phone,role);
+      const result = await this.userService.registerUser(name,phone,role);
 
-      res.status(201).json({
+      res.status(200).json({
         success: true,
-        data: newUser
+        message: result.isExisting ? "WELCOME_BACK" : "USER_CREATED",
+        data: result
       });
     } catch (error) {
       next(error);

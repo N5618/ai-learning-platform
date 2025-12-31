@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="container-fluid bg-light min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-sm border-0" style="max-width: 450px; width: 100%; border-radius: 15px;">
+
+        <div class="card-header bg-primary text-white text-center py-4" style="border-radius: 15px 15px 0 0;">
+            <h2 class="fw-bold mb-0">ברוכים הבאים!</h2>
+            <p class="mb-0 opacity-75">בואו נתחיל ללמוד משהו חדש</p>
+        </div>
+
+        <div class="card-body p-4 text-end">
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-secondary">שם מלא</label>
+                <div class="input-group">
+                    <input type="text" name="userName" class="form-control form-control-lg bg-light border-0"
+                        [(ngModel)]="userData.name">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-secondary">מספר טלפון</label>
+                <input type="text" name="userPhone" class="form-control form-control-lg bg-light border-0"
+                    [(ngModel)]="userData.phone">
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger py-2 mb-3 text-center shadow-sm"
+                style="font-size: 0.9rem;">
+                <strong>שימי לב:</strong> {{ errorMessage }}
+            </div>
+
+            <button class="btn btn-primary btn-lg w-100 fw-bold shadow-sm" (click)="onRegister()">
+                הירשם והתחל ללמוד
+            </button>
+        </div>
+
+        <div class="card-footer bg-white border-0 text-center pb-4">
+            <small class="text-muted small">המידע שלך נשמר בצורה מאובטחת</small>
+        </div>
+    </div>
+</div>
