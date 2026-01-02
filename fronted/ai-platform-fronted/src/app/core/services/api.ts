@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User, SubCategory, Category, CreatePromptDTO, Prompt, ApiResponse } from '../models/learning.model';
+
+
 
 
 @Injectable({
@@ -39,15 +41,15 @@ getSubCategoriesByCategory(categoryId: string): Observable<SubCategory[]> {
     return this.http.post<ApiResponse<Prompt>>(`${this.baseUrl}/prompts/generate/`, dto)
       .pipe(map(response => response.data))
   }
-getHistoryById(userId: string): Observable<Prompt[]> {
+getHistoryById(userId: string): Observable<ApiResponse<Prompt[]>> {
     return this.http.get<ApiResponse<Prompt[]>>(`${this.baseUrl}/prompts/history/${userId}`)
-      .pipe(map(res => res.data));
+    
   }
 
-  getAllPromptsAdmin(): Observable<Prompt[]> {
+  getAllPromptsAdmin(): Observable<ApiResponse<Prompt[]>> {
     return this.http.get<ApiResponse<Prompt[]>>(`${this.baseUrl}/prompts/admin/all`)
-      .pipe(map(res => res.data));
   }
+  
 
 
 

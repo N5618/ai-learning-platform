@@ -12,6 +12,8 @@ export class UserService {
         }
         const newUser = await this.userRepository.create({ name, phone, role });
         return { user: newUser, isExisting: false };
+
+        
     }
 
     async getById(userId: string) {

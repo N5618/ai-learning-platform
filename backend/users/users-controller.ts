@@ -11,7 +11,7 @@ export class ControllerUser {
 
   async registerUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, phone, role } = req.body;
+      const { name, phone,password, role } = req.body;
      
       const result = await this.userService.registerUser(name,phone,role);
 

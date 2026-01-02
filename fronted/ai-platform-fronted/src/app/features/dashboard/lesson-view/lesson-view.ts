@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lesson-view.css',
 })
 export class LessonView {
+  @Input() promptData: Prompt | null = null;
   @Input() content: Prompt | null = null;
   printLesson() {
     window.print();

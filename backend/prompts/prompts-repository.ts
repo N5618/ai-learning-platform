@@ -25,8 +25,10 @@ export class PromptRepository {
         return await this.promptModel
             .find()
             .populate('user_id', 'name')
-            .populate('category_id','name')
+            .populate('category_id', 'name')
             .populate('sub_category_id', 'name')
+            .sort({ created_at: -1 })
+            .limit(10)
             .exec();
     }
 }

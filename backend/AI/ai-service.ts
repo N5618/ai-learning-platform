@@ -16,39 +16,39 @@ export class AiService {
         });
     }
 
-    // async generateLesson(category: string, subCategory: string, prompt: string): Promise<string> {
-    //     if (process.env.OPENAI_API_KEY === undefined || process.env.OPENAI_API_KEY === '') {
-    //         return this.getMockResponse(category, subCategory, prompt);
-    //     }
+    async generateLesson(category: string, subCategory: string, prompt: string): Promise<string> {
+        if (process.env.OPENAI_API_KEY === undefined || process.env.OPENAI_API_KEY === '') {
+            return this.getMockResponse(category, subCategory, prompt);
+        }
 
-    //     try {
-    //         const response = await this.openai.chat.completions.create({
-    //             model: "gpt-3.5-turbo",
-    //             messages: [
-    //                 {
-    //                     role: "system",
-    //                     content: `You are a helpful teaching assistant. 
-    //                               The student wants to learn about ${subCategory} in the field of ${category}. 
-    //                               Provide a clear, engaging, and educational explanation in Hebrew.`
-    //                 },
-    //                 {
-    //                     role: "user",
-    //                     content: prompt
-    //                 }
-    //             ],
-    //             temperature: 0.7,
-    //         });
+        try {
+            const response = await this.openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "system",
+                        content: `You are a helpful teaching assistant. 
+                                  The student wants to learn about ${subCategory} in the field of ${category}. 
+                                  Provide a clear, engaging, and educational explanation in Hebrew.`
+                    },
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ],
+                temperature: 0.7,
+            });
 
-    //         return response.choices[0].message?.content || "מצטער, לא הצלחתי לייצר תוכן כרגע.";
+            return response.choices[0].message?.content || "מצטער, לא הצלחתי לייצר תוכן כרגע.";
 
-    //     } catch (error: any) {
-    //         console.error("OpenAI API Error:", error.message);
-    //         throw new Error("נכשלה התקשורת עם שירות ה-AI. אנא נסה שוב מאוחר יותר.");
-    //     }
-    // }
+        } catch (error: any) {
+            console.error("OpenAI API Error:", error.message);
+            throw new Error("נכשלה התקשורת עם שירות ה-AI. אנא נסה שוב מאוחר יותר.");
+        }
+    }
 
    
-    async  generateLesson(category: string, subCategory: string, prompt: string): Promise<string> {
+    async  getMockResponse(category: string, subCategory: string, prompt: string): Promise<string> {
         await new Promise(resolve => setTimeout(resolve, 1000)); // סימולציה של זמן המתנה
         return `זאת תשובת דמי (Mock):
         ביקשת ללמוד על ${subCategory} בתחום ה${category}.

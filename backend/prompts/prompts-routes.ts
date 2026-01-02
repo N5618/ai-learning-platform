@@ -23,7 +23,7 @@ const promptController = new PromptController(promptService);
 
 router.get("/history/:userId", validateUserId, promptController.getUserHistoryById);
 router.post("/generate", validateUserId, validatePrompt, promptController.createLesson);
-router.get("/admin/all", isAdmin, promptController.getAll);
+router.get("/admin/all", promptController.getAll);
 
 
 

@@ -25,7 +25,11 @@ export interface SubCategory {
 
 export interface Prompt {
   _id: string;
-  user_id: string; 
+  user_id: {
+    _id: string;
+    name: string;
+    phone?: string;
+  };
   category_id: {
     _id: string;
     name: string;

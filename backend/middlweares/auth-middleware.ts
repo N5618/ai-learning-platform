@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { UserModel } from "../users/model";
 
+
+
 export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.headers['user-id'];

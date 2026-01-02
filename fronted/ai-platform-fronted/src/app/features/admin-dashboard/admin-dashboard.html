@@ -1,0 +1,64 @@
+<div class="lesson-container mt-4 p-4 border rounded shadow-sm bg-white" dir="rtl">
+  <!-- Simple Filters -->
+  <div class="filters-section mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="חפש לפי שם משתמש" 
+               [(ngModel)]="userNameFilter" (input)="onFilterChange()">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="חפש לפי קטגוריה"
+               [(ngModel)]="categoryFilter" (input)="onFilterChange()">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-secondary" (click)="userNameFilter=''; categoryFilter=''; onFilterChange()">
+          נקה סינון
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-layout">
+    <div class="table-column">
+      <table>
+        <thead>
+          <tr>
+            <th>שם משתמש👤</th>
+            <th>נושא 📚</th>
+            <th>תאריך 📅</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of filteredLessons; track row._id) {
+            <tr (click)="selectPrompt(row)" [class.selected]="selectedPrompt?._id === row._id">
+              <td>{{ row.user_id?.name }}</td>
+              <td>{{ row.sub_category_id?.name }}</td>
+              <td>{{ row.created_at | date:'dd/MM/yy HH:mm' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      
+      <div class="mt-2">
+        <small class="text-muted">מציג {{ filteredLessons.length }} מתוך {{ allLessons.length }} שיעורים (מוגבל ל-10)</small>
+      </div>
+    </div>
+
+    <div class="detail-column">
+      @if (selectedPrompt) {
+        <div class="lesson-header border-bottom pb-2 mb-3">
+          <h2 class="text-primary">📖 פרטי שיעור</h2>
+          <small class="text-muted">
+            קטגוריה: {{ selectedPrompt.category_id.name }}
+          </small>
+        </div>
+        
+        <app-lesson-view [content]="selectedPrompt"></app-lesson-view>
+      } @else {
+        <div class="text-center mt-5 text-muted">
+          <p>נא לבחור שורה מהטבלה לצפייה בפרטים 🔎</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

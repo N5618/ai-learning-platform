@@ -7,8 +7,8 @@ import promptRouter from "./prompts/prompts-routes"
 import categoryRouter from "./categories/category-routes"
 import { connectToDb } from './utils/db-conn';
 
-const HOST = 'localhost';
 const PORT = 5000;
+const HOST = "127.0.0.1";
 
 export default class App {
     private app: Express;
@@ -19,7 +19,7 @@ export default class App {
 
     public async init() {
 
-        await connectToDb()
+        await connectToDb();
         this.app.use(cors());
 
         this.app.use(express.json());
