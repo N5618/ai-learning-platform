@@ -16,19 +16,31 @@ export class PromptRepository {
         return await this.promptModel.
             find({ user_id: new Types.ObjectId(userId) })
             .sort({ created_at: -1 })
-            .populate('category_id','name')
+            .populate('category_id', 'name')
             .populate('sub_category_id', 'name')
             .exec();
     }
 
-    async getAll() {
-        return await this.promptModel
-            .find()
-            .populate('user_id', 'name')
-            .populate('category_id', 'name')
-            .populate('sub_category_id', 'name')
-            .sort({ created_at: -1 })
-            .limit(10)
-            .exec();
+    async getAll(page: number = 1, limit: number = 1000, search: string = "") {
+        console.log("Fetching all prompts for Admin...");
+        
+        const skip = (page - 1) * limit;
+
+       
+        const query = search ? { prompt: { $regex: search, $options: "i" } } : {};
+
+        const [data, total] = await Promise.all([
+            this.promptModel.find(query)
+                .populate("user_id", "name")
+                .populate("category_id", "name")
+                .populate("sub_category_id", "name")
+                .sort({ created_at: -1 }) 
+                .skip(skip)
+                .limit(limit)
+                .exec(),
+            this.promptModel.countDocuments(query)
+        ]);
+
+        return { data, total };
     }
 }

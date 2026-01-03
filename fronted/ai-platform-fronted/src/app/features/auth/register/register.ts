@@ -24,34 +24,43 @@ export class Register {
   };
 
 
-  onRegister() {
-    this.errorMessage = null;
+ onRegister() {
+  this.errorMessage = null;
 
-    this.apiService.register(this.userData).subscribe({
+  this.apiService.register(this.userData).subscribe({
+    next: (response: any) => {
+      console.log("תשובת השרת המלאה:", response);
 
+    
+      const user = response.data?.user;
+      const token = response.data?.token;
 
+      if (user && token) {
+       
+        localStorage.setItem('token', token);
+        
+        localStorage.setItem('currentUser', JSON.stringify(user));
+   
+        localStorage.setItem('user_id', user._id);
+        
+        console.log("התחברות הצליחה, טוקן ומשתמש נשמרו");
 
-      next: (response: any) => {
-        console.log("תשובת השרת המלאה:", response);
-
-      
-        const user = response.data?.user;
-
-        if (user && user._id) {
-          localStorage.setItem('user_id', user._id);
-          console.log("מזהה המשתמש נשמר בהצלחה:", user._id);
+     
+        if (user.role === 'admin') {
+          this.router.navigate(['/admin-dashboard']);
         } else {
-          console.warn("לא נמצא מזהה משתמש בתוך response.data.user");
+          this.router.navigate(['/dashboard']);
         }
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        if (err.status === 0) {
-          this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
-        } else {
-          this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
-        }
+      } else {
+        console.warn("חסר מידע קריטי (User או Token) בתגובת השרת");
+        this.errorMessage = "שגיאה בקבלת נתוני גישה מהשרת";
       }
-    });
-  }
-}
+    },
+    error: (err) => {
+      if (err.status === 0) {
+        this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
+      } else {
+        this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
+      }
+    }
+  });}}

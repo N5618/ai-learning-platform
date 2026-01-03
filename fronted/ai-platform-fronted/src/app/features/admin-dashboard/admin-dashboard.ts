@@ -27,19 +27,34 @@ export class AdminDashboard implements OnInit {
     this.loadHistory();
   }
 
-  loadHistory() {
-    this.apiService.getAllPromptsAdmin().subscribe({
-      next: (response: any) => {
-        console.log('Server response received:', response);
-        
-        this.allLessons = response.data || response;
-        this.filteredLessons = [...this.allLessons];
-        
-        console.log('allLessons updated, length:', this.allLessons.length);
-      },
-      error: (err: any) => console.error('Error loading history', err)
-    });
-  }
+loadHistory() {
+  this.apiService.getAllPromptsAdmin().subscribe({
+    next: (response: any) => {
+      console.log('Server response:', response);
+
+      // כאן התיקון הקריטי:
+      // לפי הלוג שלך, המערך נמצא בתוך response.data.data
+      if (response && response.data && Array.isArray(response.data.data)) {
+        this.allLessons = response.data.data;
+      } 
+      // אם המבנה הוא response.data (והוא מערך)
+      else if (response && Array.isArray(response.data)) {
+        this.allLessons = response.data;
+      }
+      else {
+        this.allLessons = [];
+      }
+
+      this.filteredLessons = [...this.allLessons];
+      console.log('Lessons assigned to table:', this.allLessons.length);
+    },
+    error: (err) => {
+      console.error('Error:', err);
+      this.allLessons = [];
+      this.filteredLessons = [];
+    }
+  });
+}
 
   onFilterChange() {
     this.filteredLessons = this.allLessons.filter(lesson => {

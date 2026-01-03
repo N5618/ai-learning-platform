@@ -9,6 +9,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: Dashboard },
     { path: 'history', component: History },
     { path: 'admin', component: AdminDashboard },
+    { path: 'admin-dashboard', component: AdminDashboard },
     { path: '', redirectTo: '/register', pathMatch: 'full' }
 
 ];

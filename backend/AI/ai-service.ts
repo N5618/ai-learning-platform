@@ -8,7 +8,9 @@ export class AiService {
 
         
         if (!apiKey) {
+            
             console.warn("⚠️ Warning: OPENAI_API_KEY is missing. AI features will fail.");
+            
         }
 
         this.openai = new OpenAI({
@@ -44,12 +46,13 @@ export class AiService {
         } catch (error: any) {
             console.error("OpenAI API Error:", error.message);
             throw new Error("נכשלה התקשורת עם שירות ה-AI. אנא נסה שוב מאוחר יותר.");
+            
         }
     }
 
    
     async  getMockResponse(category: string, subCategory: string, prompt: string): Promise<string> {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // סימולציה של זמן המתנה
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
         return `זאת תשובת דמי (Mock):
         ביקשת ללמוד על ${subCategory} בתחום ה${category}.
         השאלה שלך הייתה: "${prompt}".

@@ -1,0 +1,10 @@
+services:
+  mongodb:
+    image: mongo:latest # אומר לדוקר: "תביא לי קופסה מוכנה של MongoDB"
+    container_name: ai_platform_db
+    ports:
+      - "27017:27017" # מחבר בין הקופסה למחשב שלך
+    volumes:
+      - mongo_data:/data/db 
+volumes:
+  mongo_data:
