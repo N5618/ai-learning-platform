@@ -17,7 +17,7 @@ export class PromptService {
         const category = await this.categoryService.findById(categoryId);
         const subCategory = await this.categoryService.findSubById(subCategoryId);
 
-      
+
         const categoryName = category?.name || "General";
         const subCategoryName = subCategory?.name || "General Topic";
 

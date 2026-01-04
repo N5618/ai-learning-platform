@@ -1,9 +1,7 @@
 <div class="dashboard-wrapper d-flex" dir="rtl">
-  
+
   <aside class="history-sidebar border-start p-3">
-    <app-history 
-      [allLessons]="allLessons" 
-      (lessonSelected)="onLessonSelected($event)">
+    <app-history [allLessons]="allLessons" (lessonSelected)="onLessonSelected($event)">
     </app-history>
   </aside>
 
@@ -19,8 +17,8 @@
     <hr>
 
     <section class="lesson-display mt-4">
-        
-     <app-lesson-view *ngIf="currentLesson" [content]="currentLesson"></app-lesson-view>
+
+      <app-lesson-view *ngIf="currentLesson" [content]="currentLesson"></app-lesson-view>
 
       <div *ngIf="!currentLesson" class="alert alert-light text-center border">
         <h5>מוכנים ללמוד משהו חדש? 🚀</h5>

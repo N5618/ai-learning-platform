@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { IUser } from "./model";
 
 export class UserRepository {
-  constructor(private readonly userModel: Model<IUser>) {}
+  constructor(private readonly userModel: Model<IUser>) { }
 
   create(data: Partial<IUser>) {
     return this.userModel.create(data);

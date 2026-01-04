@@ -1,19 +1,20 @@
 <div class="lesson-container mt-4 p-4 border rounded shadow-sm bg-white" dir="rtl">
-  
+
   <div class="filters-section mb-3">
     <div class="row g-3">
       <div class="col-md-4">
         <label class="form-label fw-bold">חיפוש לפי משתמש</label>
-        <input type="text" class="form-control" placeholder="הקלד שם משתמש..." 
-               [(ngModel)]="userNameFilter" (input)="onFilterChange()">
+        <input type="text" class="form-control" placeholder="הקלד שם משתמש..." [(ngModel)]="userNameFilter"
+          (input)="onFilterChange()">
       </div>
       <div class="col-md-4">
         <label class="form-label fw-bold">חיפוש לפי נושא</label>
-        <input type="text" class="form-control" placeholder="הקלד נושא/קטגוריה..."
-               [(ngModel)]="categoryFilter" (input)="onFilterChange()">
+        <input type="text" class="form-control" placeholder="הקלד נושא/קטגוריה..." [(ngModel)]="categoryFilter"
+          (input)="onFilterChange()">
       </div>
       <div class="col-md-4 d-flex align-items-end">
-        <button class="btn btn-outline-secondary w-100" (click)="userNameFilter=''; categoryFilter=''; onFilterChange()">
+        <button class="btn btn-outline-secondary w-100"
+          (click)="userNameFilter=''; categoryFilter=''; onFilterChange()">
           <i class="bi bi-eraser"></i> נקה סינון
         </button>
       </div>
@@ -33,46 +34,45 @@
           </thead>
           <tbody>
             @for (row of filteredLessons; track row._id) {
-              <tr (click)="selectPrompt(row)" 
-                  [class.selected]="selectedPrompt?._id === row._id"
-                  style="cursor: pointer;">
-                <td>{{ row.user_id.name }}</td>
-                <td>{{ row.sub_category_id.name }}</td>
-                <td>{{ row.created_at | date:'dd/MM/yy HH:mm' }}</td>
-              </tr>
+            <tr (click)="selectPrompt(row)" [class.selected]="selectedPrompt?._id === row._id" style="cursor: pointer;">
+              <td>{{ row.user_id.name }}</td>
+              <td>{{ row.sub_category_id.name }}</td>
+              <td>{{ row.created_at | date:'dd/MM/yy HH:mm' }}</td>
+            </tr>
             } @empty {
-              <tr>
-                <td colspan="3" class="text-center py-4 text-muted">לא נמצאו שיעורים התואמים לחיפוש</td>
-              </tr>
+            <tr>
+              <td colspan="3" class="text-center py-4 text-muted">לא נמצאו שיעורים התואמים לחיפוש</td>
+            </tr>
             }
           </tbody>
         </table>
       </div>
-      
+
       <div class="mt-2 d-flex justify-content-between align-items-center">
         <small class="text-muted">
-          מציג <strong>{{ filteredLessons.length }}</strong> מתוך <strong>{{ allLessons.length }}</strong> שיעורים במערכת
+          מציג <strong>{{ filteredLessons.length }}</strong> מתוך <strong>{{ allLessons.length }}</strong> שיעורים
+          במערכת
         </small>
       </div>
     </div>
 
     <div class="detail-column ms-md-4">
       @if (selectedPrompt) {
-        <div class="lesson-card border rounded p-3 shadow-sm bg-light">
-          <div class="lesson-header border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
-            <h4 class="text-primary m-0">📖 פרטי שיעור</h4>
-            <span class="badge bg-info text-dark">
-              {{ selectedPrompt.category_id.name }}
-            </span>
-          </div>
-          
-          <app-lesson-view [content]="selectedPrompt"></app-lesson-view>
+      <div class="lesson-card border rounded p-3 shadow-sm bg-light">
+        <div class="lesson-header border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
+          <h4 class="text-primary m-0">📖 פרטי שיעור</h4>
+          <span class="badge bg-info text-dark">
+            {{ selectedPrompt.category_id.name }}
+          </span>
         </div>
+
+        <app-lesson-view [content]="selectedPrompt"></app-lesson-view>
+      </div>
       } @else {
-        <div class="no-selection-placeholder text-center mt-5 p-5 border rounded dashed">
-          <div class="display-1 text-muted opacity-25">🔎</div>
-          <p class="h5 text-muted mt-3">נא לבחור שורה מהטבלה לצפייה בתוכן השיעור</p>
-        </div>
+      <div class="no-selection-placeholder text-center mt-5 p-5 border rounded dashed">
+        <div class="display-1 text-muted opacity-25">🔎</div>
+        <p class="h5 text-muted mt-3">נא לבחור שורה מהטבלה לצפייה בתוכן השיעור</p>
+      </div>
       }
     </div>
   </div>

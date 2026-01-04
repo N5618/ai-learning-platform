@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "./users-service";
 import * as jwt from 'jsonwebtoken';
 // const JWT_SECRET = process.env['JWT_SECRET'] || 'super-secret-key';
-const JWT_SECRET = 'my_super_secret_12345'; 
+const JWT_SECRET = 'my_super_secret_12345';
 
 export class ControllerUser {
 
@@ -30,7 +30,7 @@ export class ControllerUser {
 
       res.status(200).json({
         success: true,
-        message: result.isExisting ? "WELCOME_BACK" : "USER_CREATED",
+        message: result.isExisting ? "WELCOME BACK" : "נרשמת בהצלחה ",
         data: {
           user: user,
           token: token
@@ -52,6 +52,7 @@ export class ControllerUser {
       });
     } catch (error) {
       next(error);
+        
     }
   };
 

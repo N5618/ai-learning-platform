@@ -4,10 +4,12 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background-color: #f8f9fa; /* צבע בהיר כשמרחפים עם העכבר */
+  background-color: #f8f9fa;
+  /* צבע בהיר כשמרחפים עם העכבר */
 }
 
 .selected {
-  background-color: #e9ecef !important; /* צבע חזק יותר לשורה שנבחרה */
+  background-color: #e9ecef !important;
+  /* צבע חזק יותר לשורה שנבחרה */
   font-weight: bold;
 }

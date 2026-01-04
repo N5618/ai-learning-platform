@@ -24,29 +24,30 @@ export class Dashboard {
     this.loadHistory();
   }
 
-onLessonGenerated(lesson: Prompt) {
-  this.currentLesson = lesson;
+  onLessonGenerated(lesson: Prompt) {
+    this.currentLesson = lesson;
 
-  this.allLessons = [lesson, ...this.allLessons];
-  
-  console.log('Current lesson set to:', this.currentLesson);
-}
+    this.allLessons = [lesson, ...this.allLessons];
+
+    console.log('Current lesson set to:', this.currentLesson);
+  }
   onLessonSelected(lesson: Prompt) {
     this.currentLesson = lesson;
   }
-loadHistory() {
+  loadHistory() {
     const currentUserId = localStorage.getItem('user_id');
+
     if (!currentUserId) return;
 
-    this.allLessons = []; 
+    this.allLessons = [];
     console.log('Array cleared, fetching new data for:', currentUserId);
 
     this.apiService.getHistoryById(currentUserId).subscribe({
       next: (response: any) => {
         console.log('Server response received:', response);
-        
-        this.allLessons = response.data || response; 
-        
+
+        this.allLessons = response.data || response;
+
         console.log('allLessons updated, length:', this.allLessons.length);
 
         if (this.allLessons.length > 0) {
@@ -55,7 +56,7 @@ loadHistory() {
       },
       error: (err) => console.error('Error loading history', err)
     });
-}
   }
+}
 
 

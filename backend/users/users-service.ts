@@ -4,16 +4,18 @@ import { UserRepository } from "./users-repository"
 export class UserService {
     constructor(private readonly userRepository: UserRepository) { }
 
-    async registerUser(name: string, phone: string,role?:string) {
+    async registerUser(name: string, phone: string, role?: string) {
 
         const exists = await this.userRepository.findByPhone(phone);
         if (exists) {
-           return { user: exists, isExisting: true };
+            return { user: exists, isExisting: true };
         }
         const newUser = await this.userRepository.create({ name, phone, role });
         return { user: newUser, isExisting: false };
+        
 
         
+
     }
 
     async getById(userId: string) {

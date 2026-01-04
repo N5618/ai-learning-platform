@@ -24,43 +24,49 @@ export class Register {
   };
 
 
- onRegister() {
-  this.errorMessage = null;
+  onRegister() {
+    this.errorMessage = null;
 
-  this.apiService.register(this.userData).subscribe({
-    next: (response: any) => {
-      console.log("תשובת השרת המלאה:", response);
+    this.apiService.register(this.userData).subscribe({
+      next: (response: any) => {
+        console.log("תשובת השרת המלאה:", response);
 
-    
-      const user = response.data?.user;
-      const token = response.data?.token;
 
-      if (user && token) {
-       
-        localStorage.setItem('token', token);
-        
-        localStorage.setItem('currentUser', JSON.stringify(user));
-   
-        localStorage.setItem('user_id', user._id);
-        
-        console.log("התחברות הצליחה, טוקן ומשתמש נשמרו");
+        const user = response.data?.user;
 
-     
-        if (user.role === 'admin') {
-          this.router.navigate(['/admin-dashboard']);
+        const message = response.message
+        const token = response.data?.token;
+
+        if (user && token) {
+
+          localStorage.setItem('token', token);
+
+          localStorage.setItem('currentUser', JSON.stringify(user));
+
+          localStorage.setItem('user_id', user._id);
+
+          alert(message + "    " + user.name)
+
+          console.log("התחברות הצליחה, טוקן ומשתמש נשמרו");
+
+
+          if (user.role === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
         } else {
-          this.router.navigate(['/dashboard']);
+          console.warn("חסר מידע קריטי (User או Token) בתגובת השרת");
+          this.errorMessage = "שגיאה בקבלת נתוני גישה מהשרת";
         }
-      } else {
-        console.warn("חסר מידע קריטי (User או Token) בתגובת השרת");
-        this.errorMessage = "שגיאה בקבלת נתוני גישה מהשרת";
+      },
+      error: (err) => {
+        if (err.status === 0) {
+          this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
+        } else {
+          this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
+        }
       }
-    },
-    error: (err) => {
-      if (err.status === 0) {
-        this.errorMessage = "השרת לא זמין. וודאי שהפעלת את ה-Backend";
-      } else {
-        this.errorMessage = err.error?.message || "קרתה שגיאה ברישום";
-      }
-    }
-  });}}
+    });
+  }
+}

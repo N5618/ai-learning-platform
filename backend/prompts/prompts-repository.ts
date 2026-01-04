@@ -23,10 +23,10 @@ export class PromptRepository {
 
     async getAll(page: number = 1, limit: number = 1000, search: string = "") {
         console.log("Fetching all prompts for Admin...");
-        
+
         const skip = (page - 1) * limit;
 
-       
+
         const query = search ? { prompt: { $regex: search, $options: "i" } } : {};
 
         const [data, total] = await Promise.all([
@@ -34,7 +34,7 @@ export class PromptRepository {
                 .populate("user_id", "name")
                 .populate("category_id", "name")
                 .populate("sub_category_id", "name")
-                .sort({ created_at: -1 }) 
+                .sort({ created_at: -1 })
                 .skip(skip)
                 .limit(limit)
                 .exec(),

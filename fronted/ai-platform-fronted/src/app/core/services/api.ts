@@ -49,7 +49,6 @@ export class ApiService {
   }
   getHistoryById(userId: string): Observable<ApiResponse<Prompt[]>> {
     return this.http.get<ApiResponse<Prompt[]>>(`${this.baseUrl}/prompts/history/${userId}`)
-
   }
 
   getAllPromptsAdmin(page: number = 1, limit: number = 1000, search: string = ''): Observable<ApiResponse<Prompt[]>> {

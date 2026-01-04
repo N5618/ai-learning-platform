@@ -1,15 +1,19 @@
 .dashboard-wrapper {
   display: flex;
-  height: 100vh; /* תופס את כל גובה המסך */
+  height: 100vh;
+  /* תופס את כל גובה המסך */
 }
 
 .history-sidebar {
-  width: 300px; /* רוחב קבוע לסיידבר */
-  overflow-y: auto; /* מאפשר גלילה אם יש הרבה שיעורים */
+  width: 300px;
+  /* רוחב קבוע לסיידבר */
+  overflow-y: auto;
+  /* מאפשר גלילה אם יש הרבה שיעורים */
   background-color: #f8f9fa;
 }
 
 .main-content {
-  flex: 1; /* תופס את כל שאר השטח */
+  flex: 1;
+  /* תופס את כל שאר השטח */
   overflow-y: auto;
 }
